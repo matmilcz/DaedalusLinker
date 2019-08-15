@@ -21,7 +21,6 @@ bool checkNumOfArgs(int argc)
     {
         return true;
     }
-    
 }
 
 int main(int argc, char* argv[])
