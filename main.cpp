@@ -31,15 +31,17 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    GlobalFlagsContainer globalFlagsContainer(std::vector<std::string>(argv + MIN_NUM_OF_ARGS, argv + argc));
+    GlobalFlagsContainer globalFlagsContainer{std::vector<std::string>(argv + MIN_NUM_OF_ARGS, argv + argc)};
 
     std::string inputFilePath = argv[IN_FILE_PATH_ARG];
     std::string outputFilePath = argv[OUT_FILE_PATH_ARG];
 
-    FilePathExtractor filePathExtractor(inputFilePath, globalFlagsContainer.recursiveSearchFlag);
+    FilePathExtractor filePathExtractor{inputFilePath, globalFlagsContainer.recursiveSearchFlag};
     auto extractedFilePaths = filePathExtractor.extractFilePaths();
 
-    DaedalusLinker daedalusLinker(outputFilePath, extractedFilePaths, globalFlagsContainer.commentsRemovalFlag);
+    DaedalusLinker daedalusLinker{outputFilePath, 
+                                  extractedFilePaths, 
+                                  globalFlagsContainer.commentsRemovalFlag};
     daedalusLinker.link();
 
     return 0;

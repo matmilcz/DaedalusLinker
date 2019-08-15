@@ -10,12 +10,13 @@ public:
     DaedalusLinkerWithoutComments(const std::string& _outputFilePath,
                                   const std::vector<fs::path>& _filePaths);
 
-    virtual void link();
+    virtual void link(std::ostream& output);
 
 private:
     const std::string_view commentSymbol = "//";
     const std::string_view quoteSymbol = "\"";
 
+    void writeStringWithoutCommentToOutput(std::string line, std::ostream& output);
     std::string getStringWithoutComment(const std::string& line);
     bool checkIfInQuotes(size_t commentPos, const std::vector<BeginEndPos>& quotesBeginEndPositions);
     std::vector<BeginEndPos> getQuotesBeginEndPositions(const std::string& line);

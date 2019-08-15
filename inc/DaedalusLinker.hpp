@@ -21,4 +21,6 @@ protected:
 
 private:
     bool commentsRemovalFlag;
+    
+    void clearOutputFileContent();
 };

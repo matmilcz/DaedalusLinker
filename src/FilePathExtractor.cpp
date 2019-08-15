@@ -2,12 +2,24 @@
 #include <fstream>
 #include <iostream>
 
-FilePathExtractor::FilePathExtractor(const fs::path& _inputFilePath, const bool _recursiveSearchFlag) : inputFilePath(_inputFilePath),
-                                                                                                        recursiveSearchFlag(_recursiveSearchFlag) {}
+FilePathExtractor::FilePathExtractor(const fs::path& _inputFilePath, const bool _recursiveSearchFlag) 
+                                    : inputFilePath(_inputFilePath),
+                                      recursiveSearchFlag(_recursiveSearchFlag) {}
                                                                     
 std::vector<fs::path> FilePathExtractor::extractFilePaths()
 {
-    extractedFilePaths = replaceWildcardsWithFilePaths(getFilePathsWithWildcardsFromFile());
+    std::ifstream input{inputFilePath.string(), std::ios::in};
+
+    if(not input.is_open())
+    {
+        std::cout << "WRN: Could not open file: " << inputFilePath.string() 
+                  << "! Returning empty vector..." << std::endl;
+    }
+
+    auto filePathsWithWildcards = getFilePathsWithWildcardsFromFile(input);
+    input.close();
+
+    extractedFilePaths = replaceWildcardsWithFilePaths(filePathsWithWildcards);
     return extractedFilePaths;
 }
 
@@ -32,7 +44,6 @@ std::vector<fs::path> FilePathExtractor::replaceWildcardsWithFilePaths(const std
         {
             filePaths.push_back(getRelativePath(path));
         }
-        
     }
 
     return filePaths;
@@ -42,7 +53,7 @@ std::vector<fs::path> FilePathExtractor::getFilePathsFromDirectory(const fs::pat
 {
     std::vector<fs::path> filePaths;
 
-    for(const auto& entry : fs::directory_iterator(directory))
+    for(const auto& entry : fs::directory_iterator{directory})
     {
         if(isDirectory(entry.path()))
         {
@@ -67,25 +78,15 @@ std::vector<fs::path> FilePathExtractor::getFilePathsFromDirectory(const fs::pat
     return filePaths;
 }
 
-std::vector<fs::path> FilePathExtractor::getFilePathsWithWildcardsFromFile()
+std::vector<fs::path> FilePathExtractor::getFilePathsWithWildcardsFromFile(std::istream& input)
 {
-    std::ifstream input(inputFilePath.string(), std::ios::in);
-
-    if(not input.is_open())
-    {
-        std::cout << "WRN: Could not open file: " << inputFilePath.string() 
-                  << "! Returning empty vector..." << std::endl;
-    }
-
     std::vector<fs::path> filePathsWithWildcards;
     std::string line;
 
     while(std::getline(input, line))
     {
-        filePathsWithWildcards.push_back(fs::path(line));
+        filePathsWithWildcards.push_back(fs::path{line});
     }
-
-    input.close();
 
     return filePathsWithWildcards;
 }

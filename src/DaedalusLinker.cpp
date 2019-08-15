@@ -6,9 +6,10 @@
 
 DaedalusLinker::DaedalusLinker(const std::string& _outputFilePath,
                                const std::vector<fs::path>& _filePaths,
-                               const bool _commentsRemovalFlag) : outputFilePath(_outputFilePath),
-                                                                  filePaths(_filePaths),
-                                                                  commentsRemovalFlag(_commentsRemovalFlag) {}
+                               const bool _commentsRemovalFlag) 
+                               : outputFilePath(_outputFilePath),
+                                 filePaths(_filePaths),
+                                 commentsRemovalFlag(_commentsRemovalFlag) {}
 
 void DaedalusLinker::link()
 {
@@ -22,5 +23,17 @@ void DaedalusLinker::link()
     {
         linker = std::make_unique<DaedalusLinkerWithComments>(outputFilePath, filePaths);
     }
-    linker->link();
+
+    clearOutputFileContent();
+    std::ofstream output(outputFilePath, std::ios_base::binary | std::ios_base::app);
+
+    linker->link(output);
+
+    output.close();
+}
+
+void DaedalusLinker::clearOutputFileContent()
+{
+    std::ofstream output(outputFilePath, std::ios::out | std::ofstream::trunc);
+    output.close();
 }

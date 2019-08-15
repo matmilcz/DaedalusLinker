@@ -22,7 +22,7 @@ private:
 
     std::vector<fs::path> replaceWildcardsWithFilePaths(const std::vector<fs::path>& filePathsWithWildcards);
     std::vector<fs::path> getFilePathsFromDirectory(const fs::path& directory);
-    std::vector<fs::path> getFilePathsWithWildcardsFromFile();
+    std::vector<fs::path> getFilePathsWithWildcardsFromFile(std::istream& input);
     fs::path getRelativePath(const fs::path& path);
     bool isWildcard(const fs::path& path) const;
     bool isDirectory(const fs::path& path) const;

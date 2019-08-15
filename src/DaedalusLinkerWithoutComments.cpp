@@ -3,41 +3,49 @@
 #include <iostream>
 
 DaedalusLinkerWithoutComments::DaedalusLinkerWithoutComments(const std::string& _outputFilePath,
-                                                             const std::vector<fs::path>& _filePaths) : DaedalusLinkerBase(_outputFilePath,
-                                                                                                                           _filePaths) {}
+                                                             const std::vector<fs::path>& _filePaths) 
+                                                             : DaedalusLinkerBase(_outputFilePath,
+                                                                                  _filePaths) {}
 
-void DaedalusLinkerWithoutComments::link()
+void DaedalusLinkerWithoutComments::link(std::ostream& output)
 {
-    clearOutputFileContent();
-
-    std::ofstream output(outputFilePath, std::ios_base::binary | std::ios_base::app);
-
     for(auto fileToLink : filePaths)
     {
         if(isDaedalusFile(fileToLink))
         {
             std::ifstream input(fileToLink.string());
 
-            std::string line;
-            while(std::getline(input, line))
+            if(input.is_open())
             {
-                if(checkIfContainsCommentSymbol(line))
+                std::string line;
+                while(std::getline(input, line))
                 {
-                    line = getStringWithoutComment(line);
+                    writeStringWithoutCommentToOutput(line, output);
                 }
-                
-                output << line;
 
-                if(line != "")
-                {
-                    output << "\n";
-                }
+                input.close();
             }
+            else
+            {
+                std::cout << "WRN: Could not open " << fileToLink.string() << ". Skipping..." << std::endl;
+            }
+            
         }
-        else
-        {
-            continue;
-        }
+    }
+}
+
+void DaedalusLinkerWithoutComments::writeStringWithoutCommentToOutput(std::string line, std::ostream& output)
+{
+    if(checkIfContainsCommentSymbol(line))
+    {
+        line = getStringWithoutComment(line);
+    }
+    
+    output << line;
+
+    if(line != "")
+    {
+        output << "\n";
     }
 }
 

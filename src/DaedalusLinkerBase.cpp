@@ -8,9 +8,3 @@ bool DaedalusLinkerBase::isDaedalusFile(const fs::path& path)
 {
     return path.extension().string() == daedalusExtension;
 }
-
-void DaedalusLinkerBase::clearOutputFileContent()
-{
-    std::ofstream output(outputFilePath, std::ios::out | std::ofstream::trunc);
-    output.close();
-}
