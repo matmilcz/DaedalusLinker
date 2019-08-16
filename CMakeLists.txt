@@ -71,7 +71,8 @@ set(ut_dir "ut")
 set(unit_test_main "${ut_dir}/ut.cpp")
 
 add_executable(${GTestName} ${unit_test_main} 
-                            "${ut_dir}/TestGlobalFlagsContainer/TestGlobalFlagsContainer.cpp")
+                            "${ut_dir}/TestGlobalFlagsContainer/TestGlobalFlagsContainer.cpp"
+                            "${ut_dir}/TestFilePathExtractor/TestFilePathExtractor.cpp")
 target_link_libraries(${GTestName} PRIVATE gtest_main
                                            gmock_main
                                            Boost::program_options 
