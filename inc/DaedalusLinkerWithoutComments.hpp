@@ -1,6 +1,8 @@
 #pragma once
 
-#include "DaedalusLinkerBase.hpp"
+#include <DaedalusLinkerBase.hpp>
+#include <optional>
+#include <iostream>
 
 typedef std::pair<size_t, size_t> BeginEndPos;
 

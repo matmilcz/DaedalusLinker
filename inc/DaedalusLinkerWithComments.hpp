@@ -1,6 +1,7 @@
 #pragma once
 
-#include "DaedalusLinkerBase.hpp"
+#include <DaedalusLinkerBase.hpp>
+#include <iostream>
 
 class DaedalusLinkerWithComments : public DaedalusLinkerBase
 {

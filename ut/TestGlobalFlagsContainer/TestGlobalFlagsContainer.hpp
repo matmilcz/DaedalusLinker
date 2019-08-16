@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include <string>
-#include "../../inc/GlobalFlagsContainer.hpp"
+#include <GlobalFlagsContainer.hpp>
 
 class TestGlobalFlagsContainer : public ::testing::Test
 {

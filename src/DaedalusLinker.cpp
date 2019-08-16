@@ -1,6 +1,6 @@
-#include "../inc/DaedalusLinker.hpp"
-#include "../inc/DaedalusLinkerWithComments.hpp"
-#include "../inc/DaedalusLinkerWithoutComments.hpp"
+#include <DaedalusLinker.hpp>
+#include <DaedalusLinkerWithComments.hpp>
+#include <DaedalusLinkerWithoutComments.hpp>
 #include <iostream>
 #include <memory>
 

@@ -3,6 +3,8 @@
 #include <boost/filesystem.hpp>
 #include <vector>
 #include <string_view>
+#include <fstream>
+#include <iostream>
 
 namespace fs = boost::filesystem;
 

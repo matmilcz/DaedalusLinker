@@ -1,6 +1,4 @@
-#include "../inc/FilePathExtractor.hpp"
-#include <fstream>
-#include <iostream>
+#include <FilePathExtractor.hpp>
 
 FilePathExtractor::FilePathExtractor(const fs::path& _inputFilePath, const bool _recursiveSearchFlag) 
                                     : inputFilePath(_inputFilePath),

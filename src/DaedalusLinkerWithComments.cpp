@@ -1,5 +1,4 @@
-#include "../inc/DaedalusLinkerWithComments.hpp"
-#include <iostream>
+#include <DaedalusLinkerWithComments.hpp>
 
 DaedalusLinkerWithComments::DaedalusLinkerWithComments(const std::string& _outputFilePath,
                                                        const std::vector<fs::path>& _filePaths) 

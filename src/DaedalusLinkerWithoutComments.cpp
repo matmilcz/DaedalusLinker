@@ -1,6 +1,4 @@
-#include "../inc/DaedalusLinkerWithoutComments.hpp"
-#include <optional>
-#include <iostream>
+#include <DaedalusLinkerWithoutComments.hpp>
 
 DaedalusLinkerWithoutComments::DaedalusLinkerWithoutComments(const std::string& _outputFilePath,
                                                              const std::vector<fs::path>& _filePaths) 

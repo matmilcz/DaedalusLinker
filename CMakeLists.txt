@@ -1,20 +1,34 @@
 cmake_minimum_required(VERSION 3.15.2)
 
-project(DaedalusLinker)
+project(linker)
 
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(Boost 1.69 COMPONENTS program_options REQUIRED)
 
-file(GLOB source
-    "main.cpp"
-    "src/*cpp"
-    "inc/*.hpp")
+set(project_main "dLinker.cpp")
+set(src_dir "src")
+set(inc_dir "inc")
 
-add_executable(${PROJECT_NAME} ${source})
+add_executable(${PROJECT_NAME} ${project_main})
+target_link_libraries(${PROJECT_NAME} PRIVATE Boost::program_options 
+                                              -lboost_filesystem 
+                                              DaedalusLinker 
+                                              FilePathExtractor 
+                                              Utils)
 
-target_link_libraries(${PROJECT_NAME} Boost::program_options -lboost_filesystem)
+include_directories(PUBLIC ${inc_dir})
 
+add_library(DaedalusLinker STATIC "${src_dir}/DaedalusLinker.cpp" 
+                                  "${src_dir}/DaedalusLinkerBase.cpp"
+                                  "${src_dir}/DaedalusLinkerWithComments.cpp"
+                                  "${src_dir}/DaedalusLinkerWithoutComments.cpp")
+target_link_libraries(DaedalusLinker PRIVATE Boost::program_options -lboost_filesystem)
+
+add_library(FilePathExtractor STATIC "${src_dir}/FilePathExtractor.cpp")
+target_link_libraries(FilePathExtractor PRIVATE Boost::program_options -lboost_filesystem)
+
+add_library(Utils STATIC "${src_dir}/GlobalFlagsContainer.cpp")
 
 
 # ==== GTEST ====
@@ -52,17 +66,14 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 
+set(GTestName "ut")
+set(ut_dir "ut")
+set(unit_test_main "${ut_dir}/ut.cpp")
 
-file(GLOB GTestSource
-     "ut/main.cpp"
-     "src/*cpp"
-     "inc/*.hpp"
-     "ut/TestGlobalFlagsContainer/*")
-
-set(GTestName ut)
-
-add_executable(${GTestName} ${GTestSource})
-target_link_libraries(${GTestName} gtest_main
-                                   gmock_main
-                                   Boost::program_options 
-                                   -lboost_filesystem)
+add_executable(${GTestName} ${unit_test_main} 
+                            "${ut_dir}/TestGlobalFlagsContainer/TestGlobalFlagsContainer.cpp")
+target_link_libraries(${GTestName} PRIVATE gtest_main
+                                           gmock_main
+                                           Boost::program_options 
+                                           -lboost_filesystem
+                                           Utils)

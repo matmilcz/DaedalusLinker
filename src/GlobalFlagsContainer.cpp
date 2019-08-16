@@ -1,4 +1,4 @@
-#include "../inc/GlobalFlagsContainer.hpp"
+#include <GlobalFlagsContainer.hpp>
 #include <iostream>
 
 GlobalFlagsContainer::GlobalFlagsContainer() {}
