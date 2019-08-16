@@ -8,6 +8,7 @@ struct GlobalFlagsContainer
     bool commentsRemovalFlag = false;
     bool recursiveSearchFlag = false;
 
+    GlobalFlagsContainer();
     GlobalFlagsContainer(std::vector<std::string> flags);
     void setFlags(std::vector<std::string> flags);
 };

@@ -56,7 +56,8 @@ endif()
 file(GLOB GTestSource
      "ut/main.cpp"
      "src/*cpp"
-     "inc/*.hpp")
+     "inc/*.hpp"
+     "ut/TestGlobalFlagsContainer/*")
 
 set(GTestName ut)
 

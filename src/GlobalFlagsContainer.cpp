@@ -1,6 +1,8 @@
 #include "../inc/GlobalFlagsContainer.hpp"
 #include <iostream>
 
+GlobalFlagsContainer::GlobalFlagsContainer() {}
+
 GlobalFlagsContainer::GlobalFlagsContainer(std::vector<std::string> flags)
 {
     setFlags(flags);

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
+#include "TestGlobalFlagsContainer/TestGlobalFlagsContainer.hpp"
 
 int main(int argc, char* argv[])
 {
