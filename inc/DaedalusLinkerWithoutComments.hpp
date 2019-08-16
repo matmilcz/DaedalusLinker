@@ -18,6 +18,8 @@ private:
 
     void writeStringWithoutCommentToOutput(std::string line, std::ostream& output);
     std::string getStringWithoutComment(const std::string& line);
+    std::string getStringWithoutCommentFromStringWithQuotes(const std::string& line);
+    std::string getStringWithoutCommentFromStringWithoutQuotes(const std::string& line, const std::vector<BeginEndPos>& quotesBeginEndPositions);
     bool checkIfInQuotes(size_t commentPos, const std::vector<BeginEndPos>& quotesBeginEndPositions);
     std::vector<BeginEndPos> getQuotesBeginEndPositions(const std::string& line);
     bool checkIfContainsCommentSymbol(const std::string& line);

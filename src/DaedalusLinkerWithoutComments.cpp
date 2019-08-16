@@ -55,12 +55,24 @@ std::string DaedalusLinkerWithoutComments::getStringWithoutComment(const std::st
     
     if(quotesBeginEndPositions.empty())
     {
-        auto commentPos = line.find(commentSymbol, 0);
-        return line.substr(0, commentPos);
+        return getStringWithoutCommentFromStringWithQuotes(line);
     }
     else
     {
-        size_t commentPos = 0;
+        return getStringWithoutCommentFromStringWithoutQuotes(line, quotesBeginEndPositions);
+    }
+}
+
+std::string DaedalusLinkerWithoutComments::getStringWithoutCommentFromStringWithQuotes(const std::string& line)
+{
+    auto commentPos = line.find(commentSymbol, 0);
+    return line.substr(0, commentPos);
+}
+
+std::string DaedalusLinkerWithoutComments::getStringWithoutCommentFromStringWithoutQuotes(const std::string& line, 
+                                                                                          const std::vector<BeginEndPos>& quotesBeginEndPositions)
+{
+    size_t commentPos = 0;
 
         do
         {
@@ -70,7 +82,6 @@ std::string DaedalusLinkerWithoutComments::getStringWithoutComment(const std::st
         while(checkIfInQuotes(commentPos, quotesBeginEndPositions));
 
         return line.substr(0, commentPos - 1);
-    }
 }
 
 bool DaedalusLinkerWithoutComments::checkIfInQuotes(size_t commentPos, const std::vector<BeginEndPos>& quotesBeginEndPositions)
