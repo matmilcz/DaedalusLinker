@@ -77,4 +77,5 @@ target_link_libraries(${GTestName} PRIVATE gtest_main
                                            gmock_main
                                            Boost::program_options 
                                            -lboost_filesystem
-                                           Utils)
+                                           Utils
+                                           FilePathExtractor)

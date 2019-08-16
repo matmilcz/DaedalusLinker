@@ -3,6 +3,8 @@
 FilePathExtractor::FilePathExtractor(const fs::path& _inputFilePath, const bool _recursiveSearchFlag) 
                                     : inputFilePath(_inputFilePath),
                                       recursiveSearchFlag(_recursiveSearchFlag) {}
+
+FilePathExtractor::~FilePathExtractor() {}
                                                                     
 std::vector<fs::path> FilePathExtractor::extractFilePaths()
 {
