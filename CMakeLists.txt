@@ -12,7 +12,7 @@ set(project_main "dLinker.cpp")
 set(src_dir "src")
 set(inc_dir "inc")
 
-add_executable(${PROJECT_NAME} ${project_main})
+add_executable(${PROJECT_NAME} "${src_dir}/${project_main}")
 target_link_libraries(${PROJECT_NAME} PRIVATE Boost::program_options 
                                               -lboost_filesystem 
                                               DaedalusLinker 
