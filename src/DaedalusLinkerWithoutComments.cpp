@@ -27,7 +27,6 @@ void DaedalusLinkerWithoutComments::link(std::ostream& output)
             {
                 std::cout << "WRN: Could not open " << fileToLink.string() << ". Skipping..." << std::endl;
             }
-            
         }
     }
 }
@@ -38,12 +37,10 @@ void DaedalusLinkerWithoutComments::writeStringWithoutCommentToOutput(std::strin
     {
         line = getStringWithoutComment(line);
     }
-    
-    output << line;
 
     if(line != "")
     {
-        output << "\n";
+        output << line << "\n";
     }
 }
 

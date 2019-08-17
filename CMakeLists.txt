@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.15.2)
 
 project(dLinker)
 
+link_libraries("-static")
+
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(Boost 1.69 COMPONENTS program_options REQUIRED)
